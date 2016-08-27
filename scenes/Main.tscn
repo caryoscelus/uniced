@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/story.gd" type="Script" id=2]
 [ext_resource path="res://themes/story.tres" type="Theme" id=3]
 [ext_resource path="res://gfx/room.png" type="Texture" id=4]
+[ext_resource path="res://scenes/room.gd" type="Script" id=5]
+[ext_resource path="res://gfx/door.pbm" type="BitMap" id=6]
+[ext_resource path="res://gfx/infusion.pbm" type="BitMap" id=7]
+[ext_resource path="res://gfx/feet.pbm" type="BitMap" id=8]
+[ext_resource path="res://gfx/rail.pbm" type="BitMap" id=9]
+[ext_resource path="res://gfx/room-blood.png" type="Texture" id=10]
 
 [node name="Main" type="TextureFrame"]
 
@@ -68,7 +74,115 @@ margin/right = 0.0
 margin/bottom = 0.0
 texture = ExtResource( 4 )
 stretch_mode = 3
+script/script = ExtResource( 5 )
+
+[node name="door" type="TextureButton" parent="room"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/click_mask = ExtResource( 6 )
+
+[node name="infusion" type="TextureButton" parent="room"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/click_mask = ExtResource( 7 )
+
+[node name="feet" type="TextureButton" parent="room"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/click_mask = ExtResource( 8 )
+
+[node name="rail" type="TextureButton" parent="room"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/click_mask = ExtResource( 9 )
+
+[node name="ask" type="ConfirmationDialog" parent="room"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 549.0
+margin/top = 320.0
+margin/right = 673.0
+margin/bottom = 378.0
+popup/exclusive = false
+window/title = "Please Confirm..."
+dialog/hide_on_ok = true
+
+[node name="blood" type="TextureFrame" parent="room"]
+
+visibility/visible = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+texture = ExtResource( 10 )
+stretch_mode = 3
 
 [connection signal="finished_story" from="story" to="." method="_on_finished_story"]
+
+[connection signal="pressed" from="room/door" to="room" method="_on_door_pressed"]
+
+[connection signal="pressed" from="room/infusion" to="room" method="_on_infusion_pressed"]
+
+[connection signal="pressed" from="room/feet" to="room" method="_on_feet_pressed"]
+
+[connection signal="pressed" from="room/rail" to="room" method="_on_rail_pressed"]
+
+[connection signal="confirmed" from="room/ask" to="room" method="_on_confirmed"]
 
 
